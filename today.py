@@ -1,16 +1,15 @@
 """
 Показывает задачи на сегодня (или на конкретную дату).
+Работает с облачной базой Postgres (Supabase) — DATABASE_URL должна быть задана.
 
 Использование:
     python today.py
     python today.py 2026-09-05
 """
 
-import sqlite3
 import sys
 import datetime
-
-DB_PATH = "english_program_b1.db"
+from db import get_connection
 
 
 def get_target_date():
@@ -20,11 +19,11 @@ def get_target_date():
 
 
 def show_today(target_date: str):
-    conn = sqlite3.connect(DB_PATH)
+    conn = get_connection()
     cur = conn.cursor()
 
     cur.execute(
-        "SELECT day_number, week, theme, is_rest FROM days WHERE date = ?",
+        "SELECT day_number, week, theme, is_rest FROM days WHERE date = %s",
         (target_date,),
     )
     row = cur.fetchone()
@@ -45,7 +44,7 @@ def show_today(target_date: str):
         return
 
     cur.execute(
-        "SELECT task_id, type, title, status FROM tasks WHERE day_number = ? ORDER BY task_id",
+        "SELECT task_id, type, title, status FROM tasks WHERE day_number = %s ORDER BY task_id",
         (day_number,),
     )
     tasks = cur.fetchall()

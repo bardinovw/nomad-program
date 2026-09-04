@@ -1,1 +1,3 @@
 *.db
+chat_id.txt
+.env
