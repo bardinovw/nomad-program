@@ -1,3 +1,4 @@
 *.db
 chat_id.txt
 .env
+__pycache__/
