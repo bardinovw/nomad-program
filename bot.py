@@ -19,7 +19,7 @@ from telebot import types
 from apscheduler.schedulers.background import BackgroundScheduler
 from db import get_connection
 
-BOT_TOKEN = BOT_TOKEN = os.environ.get("BOT_TOKEN", "")
+BOT_TOKEN = os.environ.get("BOT_TOKEN", "")
 CHAT_ID_FILE = "chat_id.txt"
 SEND_TIME = "08:00"  # формат HH:MM, время ежедневной отправки
 
